@@ -13,19 +13,21 @@ spring:
     gateway:
       routes:
         - id: user-service
-          uri: lb://user-service
+          uri: lb://USER-SERVICE
           predicates:
             - Path=/users/**
           filters:
+            - StripPrefix=1
             - name: CircuitBreaker
               args:
                 name: user-service
                 fallbackUri: forward:/userServiceFallback
         - id: department-service
-          uri: lb://department-service
+          uri: lb://DEPARTMENT-SERVICE
           predicates:
             - Path=/departments/**
           filters:
+            - StripPrefix=1
             - name: CircuitBreaker
               args:
                 name: department-service
