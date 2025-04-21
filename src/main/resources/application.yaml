@@ -17,7 +17,6 @@ spring:
           predicates:
             - Path=/users/**
           filters:
-            - StripPrefix=1
             - name: CircuitBreaker
               args:
                 name: user-service
@@ -27,7 +26,6 @@ spring:
           predicates:
             - Path=/departments/**
           filters:
-            - StripPrefix=1
             - name: CircuitBreaker
               args:
                 name: department-service
