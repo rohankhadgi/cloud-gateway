@@ -8,8 +8,13 @@ spring:
   application:
     name: cloud-gateway
   config:
-    import: configserver:${CONFIG_SERVER_URL:http://localhost:9296},classpath:application.yaml
+    import: configserver:${CONFIG_SERVER_URL:http://localhost:9296}
   cloud:
+    config:
+      retry:
+        initial-interval: 1000
+        max-interval: 2000
+        max-attempts: 10
     gateway:
       routes:
         - id: user-service
@@ -38,6 +43,15 @@ spring:
       circuitbreaker:
         resilience4j:
           enabled: true
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health
+  endpoint:
+    health:
+      show-details: always
 
 resilience4j:
   circuitbreaker:
